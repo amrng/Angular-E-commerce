@@ -1,0 +1,76 @@
+.rate i {
+  color: green;
+}
+
+hr {
+  color: rgb(180, 180, 180);
+}
+
+.instock,
+.outstock {
+  color: white;
+  font-weight: bold;
+  padding: 5px 15px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.inf {
+  color: black;
+  font-weight: bold;
+  padding: 5px 15px;
+  font-size: 14px;
+  border-radius: 10px;
+  background-color: rgb(215, 215, 215);
+}
+
+.instock {
+  background-color: darkgreen;
+}
+
+.outstock {
+  background-color: darkred;
+}
+
+.counter {
+  color: green;
+  width: 150px;
+  height: 45px;
+  background-color: rgb(215, 215, 215);
+  border-radius: 30px;
+  font-size: 16px !important;
+  font-weight: bold !important;
+}
+
+.counter i {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.counter i:hover {
+  scale: 1.5;
+  transition: 0.3s;
+
+}
+
+.buy,
+.add {
+  width: 200px;
+  height: 50px;
+  border: 2px solid darkgreen;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.buy {
+  background-color: darkgreen;
+  color: white;
+}
+
+.buy:hover,
+.add:hover {
+  scale: 1.1;
+  transition: 0.3s;
+}

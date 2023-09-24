@@ -1,0 +1,99 @@
+<div class="whole p-5">
+  <h3 class="text-center mb-4 text-success fw-bold ">Welcome Again</h3>
+  <form [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
+
+
+    <div class="form-floating mb-3">
+      <input id="name" type="text" class="form-control" placeholder="Enter Your Name" formControlName="name">
+      <label for="name">Name</label>
+
+      <div *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched">
+        <span *ngIf="registerForm.controls['name'].errors?.['required']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i> Name
+          is required</span>
+        <span *ngIf="registerForm.controls['name'].errors?.['pattern']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i> Please
+          enter a valid Name</span>
+        <span *ngIf="registerForm.controls['name'].errors?.['minlength']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i> Name
+          must be more 3 character</span>
+      </div>
+    </div>
+
+
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" placeholder="ex@gmail.com" formControlName="email">
+      <label>Email</label>
+      <div
+        *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+        <span *ngIf="registerForm.controls['email'].errors?.['required']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i>
+          Email is
+          required</span>
+        <span *ngIf="registerForm.controls['email'].errors?.['pattern']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i>
+          Please enter a valid email</span>
+      </div>
+    </div>
+
+
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" placeholder="Name" formControlName="userName">
+      <label>Username</label>
+      <div
+        *ngIf="registerForm.controls['userName'].invalid && (registerForm.controls['userName'].dirty || registerForm.controls['userName'].touched)">
+        <span *ngIf="registerForm.controls['userName'].errors?.['required']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i>
+          Username
+          is required</span>
+        <span *ngIf="registerForm.controls['userName'].errors?.['pattern']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i>
+          Please
+          enter a valid Username</span>
+        <span *ngIf="registerForm.controls['userName'].errors?.['minlength']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i>
+          User name must be more 3 character</span>
+
+      </div>
+    </div>
+
+
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" placeholder="Password" formControlName="password">
+      <label>Password</label>
+      <div
+        *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
+        <span *ngIf="registerForm.controls['password'].errors?.['required']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i>
+          Password
+          is required</span>
+        <span *ngIf="registerForm.controls['password'].errors?.['pattern']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i>
+          Please
+          enter a valid password</span>
+      </div>
+    </div>
+
+
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+      <label>Confirm password</label>
+      <div
+        *ngIf="registerForm.controls['confirmPassword'].invalid && (registerForm.controls['confirmPassword'].dirty || registerForm.controls['confirmPassword'].touched)">
+        <span *ngIf="registerForm.controls['confirmPassword'].errors?.['required']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i>
+          Confirm password
+          is required</span>
+        <span *ngIf="registerForm.controls['confirmPassword'].errors?.['pattern']" class="text-danger fw-bold "><i
+            class="fa-solid fa-xmark"></i>
+          Please confirm the password</span>
+      </div>
+    </div>
+
+
+  </form>
+  <div class="position-relative mb-4">
+    <button class="but btn btn-success" [disabled]="registerForm.invalid">Register</button>
+  </div>
+
+</div>

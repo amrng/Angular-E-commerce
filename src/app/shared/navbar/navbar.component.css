@@ -1,0 +1,26 @@
+div a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  margin-right: 30px;
+}
+
+a {
+  transition: 0.3s;
+}
+
+a:hover {
+  scale: 1.1;
+  transition: 0.3s;
+  color: rgb(0, 200, 0) !important;
+}
+
+
+.active {
+  color: rgb(0, 200, 0) !important;
+}
+
+.active:hover {
+  color: rgb(0, 200, 0) !important;
+  scale: 1;
+}

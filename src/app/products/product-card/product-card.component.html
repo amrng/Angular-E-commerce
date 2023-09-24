@@ -1,0 +1,23 @@
+<div class="card mb-5" style="min-height: 450px;">
+  <span class="instock card-text" *ngIf="product.stock > 0">In-stock</span>
+  <span class="outstock card-text" *ngIf="product.stock <= 0">Out-stock</span>
+
+  <img [src]="product.thumbnail" (click)="redirectToDetails(product.id)" class="card-img-top img-responsive"
+    style="height: 200px; cursor: pointer;" alt={{product.title}}>
+
+  <div class="card-body">
+    <div class="d-flex align-items-baseline justify-content-between">
+      <h5 class="det card-text" (click)="redirectToDetails(product.id)" style="cursor: pointer;">{{product.title}}</h5>
+      <h5 class="card-text">{{product.price | currency:'USD':'symbol':'0.0-0'}}</h5>
+    </div>
+
+    <p class="card-text" style="font-size: 14px; color: lightslategray;">{{product.description}}</p>
+
+    <div class="d-flex align-items-baseline justify-content-start">
+      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+        class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i> &nbsp;
+      <span class="card-text fw-bolder" style="font-size: 14px;">({{product.rating}})</span>
+    </div>
+    <a class="addToCart btn btn-success">Add to cart</a>
+  </div>
+</div>

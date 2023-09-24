@@ -1,0 +1,40 @@
+<div class="whole p-5">
+  <h3 class="text-center mb-4 text-success fw-bold ">Welcome Back 👋🏼</h3>
+  <form #loginForm="ngForm" (ngSubmit)="handleSubmit(loginForm)">
+
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email"
+        #email="ngModel" ngModel required pattern="^[a-zA-Z0-9._]{3,}@(?:[a-zA-Z0-9]+\.)+(com|net)$">
+      <label for="floatingInput">Email address</label>
+      <div *ngIf="email.invalid && (email.dirty || email.touched)">
+        <span *ngIf="email?.errors?.['required']" class="text-danger fw-bold "><i class="fa-solid fa-xmark"></i> Email
+          is required</span>
+        <span *ngIf="email?.errors?.['pattern']" class="text-danger fw-bold "><i class="fa-solid fa-xmark"></i> Please
+          enter a valid email</span>
+      </div>
+    </div>
+
+
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password"
+        #password="ngModel" ngModel required minlength="3">
+      <label for="floatingPassword">Password</label>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)">
+        <span *ngIf="password?.errors?.['required']" class="text-danger fw-bold "><i class="fa-solid fa-xmark"></i>
+          Password is
+          required</span>
+        <span *ngIf="password?.errors?.['minlength']" class="text-danger fw-bold "><i class="fa-solid fa-xmark"></i>
+          Please enter a valid password</span>
+      </div>
+
+
+    </div>
+  </form>
+  <div class="mb-4">
+    <p>Dont't have an account? <a routerLink="/register" class="text-dark fw-bold">register now</a></p>
+  </div>
+  <div class="position-relative mb-4">
+    <button class="but btn btn-success" [disabled]="loginForm.invalid">Login</button>
+  </div>
+
+</div>
