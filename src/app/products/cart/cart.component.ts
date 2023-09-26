@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductsService } from '../products.service';
-import { ActivatedRoute } from '@angular/router';
+import { CartService } from '../cart.service';
 import { products } from '../interface';
 
 @Component({
@@ -9,20 +8,32 @@ import { products } from '../interface';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent {
-  counter: number = 0;
-  activeId!: string;
-  selectedProduct!: products;
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private _ProductsService: ProductsService
-  ) {}
+  products: any;
+  totalPrice!: number;
+  constructor(private _cartServie: CartService) {}
 
   ngOnInit() {
-    this.activeId = this.activatedRoute.snapshot.params['id'];
-
-    this._ProductsService.getProductDetails(+this.activeId).subscribe((res) => {
-      this.selectedProduct = res;
+    this._cartServie.getCartItems().subscribe((data) => {
+      this.products = data;
+      this.totalPrice = this._cartServie.getItemPrice();
     });
+  }
+
+  updateQuantity(productId: number, counter: number): void {
+    this._cartServie.updateCartItemQuantity(productId, counter);
+    this._cartServie.getCartItems().subscribe((val) => (this.products = val));
+    console.log(this.products);
+  }
+
+  removeItem(product: any) {
+    this._cartServie.removeCartItem(product);
+  }
+
+  emptyCart() {
+    this._cartServie.removeAllCart();
+  }
+
+  getItemPrice() {
+    this.totalPrice = this._cartServie.getItemPrice();
   }
 }

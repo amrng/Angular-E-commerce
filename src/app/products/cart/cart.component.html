@@ -1,38 +1,75 @@
-<div class="whole container  p-5">
-  <div class="text-center ">
-    <h3>Empty Cart</h3>
+<div class="empty" *ngIf="products.length == 0">
+  <div class="row m-5">
+    <div class="card col-md-12">
+      <div class="card-body cart">
+        <div class="col-md-12 empty-cart-cls text-center">
+          <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+          <h2 class="fw-bold ">Your Cart is Empty</h2>
+          <a routerLink="/" class="btn btn-success  cart-btn-transform m-5" data-abc="true">Continue Shopping</a>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+
+<div class="whole container p-5" *ngIf="products.length != 0">
   <div>
     <h3 class="mb-5">Shopping Cart</h3>
-    <div class="row">
+    <div class="row text-black-50 fw-bold ">
       <div class="col-md-5 text-center">Description</div>
       <div class="col-md-3">Quantity</div>
       <div class="col-md-2">Remove</div>
       <div class="col-md-2">Price</div>
     </div>
     <hr>
-    <div class="row">
+
+    <div class="row p-5 border-bottom" *ngFor="let product of products">
       <div class="col-md-5 d-flex align-items-center  justify-content-start">
-        <div class="col-md-5"></div>
-        <div class="col-md-7"></div>
-      </div>
-      <div class="col-md-3">
-        <div class="counter mb4 d-flex align-items-center justify-content-center ">
-          <i class="fa-solid fa-minus me-4"></i>
-          <p class="me-4" style="font-size: 20px; padding-top: 15px;">0</p>
-          <i class="fa-solid fa-plus"></i>
+        <div class="col-md-5 align-items-center ">
+          <img class="img-responsive" style="height: 75px; width: 150px;" [src]="product.thumbnail">
+        </div>
+
+        <div class="col-md-7">
+          <p>{{product.description}}</p>
         </div>
       </div>
-      <div class="col-md-2 d-flex align-items-center justify-content-start">
-        <span class="bg-danger rounded-2 p-2 "><i class="fa-solid fa-xmark text-white "></i></span>
+
+      <div class="col-md-3">
+        <div class="counter mb4 d-flex align-items-center justify-content-center ">
+          <i class="fa-solid fa-minus me-4" (click)="updateQuantity(product.id, -1)"></i>
+          <p class="me-4" style="font-size: 20px; padding-top: 15px;">{{product.quantity}} </p>
+          <i class="fa-solid fa-plus" (click)="updateQuantity(product.id, 1)"></i>
+        </div>
       </div>
-      <div class="col-md-2  d-flex align-items-center justify-content-start">Price</div>
+
+      <div class="col-md-2 d-flex align-items-center justify-content-center">
+        <span class="bg-danger rounded-2 p-2" style="cursor: pointer;" (click)="removeItem(product)"><i
+            class="fa-solid fa-xmark text-white "></i></span>
+      </div>
+
+      <div class="col-md-2  d-flex align-items-center justify-content-start">
+        EGP{{product.price * product.quantity | changeCurrency:31}}
+      </div>
     </div>
-    <hr class="mb-5">
-    <div class="row">
-      <div class="col-md-2 ms-auto border border-2 rounded-4 border-success p-4 d-flex align-items-center text-center">
-        <div class="col-md-6">Total:</div>
-        <div class="col-md-6 fw-bold ">1435</div>
+
+
+    <div class="mt-5 d-flex align-items-center justify-content-between ">
+      <div class="d-flex align-items-center justify-content-start  ">
+        <div class="me-4 ">
+          <button (click)="emptyCart()" class="empty btn btn-outline-danger">Empty cart <i
+              class="fa-solid fa-trash-can fa-md"></i></button>
+        </div>
+
+        <div>
+          <a routerLink="/"><button class="empty btn btn-outline-primary">Continue
+              shopping</button></a>
+        </div>
+      </div>
+
+      <div class="total border border-2 rounded-4 border-success p-4 d-flex align-items-center text-center">
+        <div class="me-4 ">Total:</div>
+        <div class="fw-bold">EGP{{totalPrice | changeCurrency:31}}</div>
       </div>
     </div>
   </div>

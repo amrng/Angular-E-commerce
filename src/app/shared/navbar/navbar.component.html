@@ -3,12 +3,13 @@
     <a class="navbar-brand" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Products
       App</a>
 
-
-    <div class="d-flex" role="search">
+    <div class="d-flex">
       <a routerLink="register" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Register</a>
       <a routerLink="login" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Login</a>
-      <a routerLink="cart" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><i
-          class="fa-solid fa-cart-shopping"></i></a>
+      <a class="" routerLink="cart" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><i
+          class="fa-solid fa-cart-shopping fa-lg"></i>
+        <span class="items">{{totalItems}}</span>
+      </a>
     </div>
   </div>
 </nav>

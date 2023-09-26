@@ -8,11 +8,13 @@ import { Observable } from 'rxjs';
 export class ProductsService {
   constructor(private http: HttpClient) {}
 
+  api: string = 'https://dummyjson.com/products';
+
   getProductList(): Observable<any> {
-    return this.http.get('https://dummyjson.com/products');
+    return this.http.get(this.api);
   }
 
   getProductDetails(id: number): Observable<any> {
-    return this.http.get(`https://dummyjson.com/products/${id}`);
+    return this.http.get(`${this.api}/${id}`);
   }
 }

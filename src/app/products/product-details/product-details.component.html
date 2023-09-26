@@ -1,11 +1,14 @@
-<div class="row">
+<div class="position-fixed top-50 start-50  " *ngIf="!selectedProduct">
+  <i class="fa-solid fa-spinner fa-spin-pulse fa-xl" style="scale: 5;"></i>
+</div>
 
+<div class="row" *ngIf="selectedProduct">
   <div class="col-md-6 me-5 ms-5">
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <div class="carousel-item active " *ngFor="let img of selectedProduct.images">
+        <div class="carousel-item active " *ngFor="let img of selectedProduct?.images">
           <img [src]="img" class="d-block w-100 rounded rounded-5 img-responsive" style="height: 500px;"
-            alt={{selectedProduct.title}}>
+            alt={{selectedProduct?.title}}>
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
@@ -18,54 +21,62 @@
       </button>
     </div>
     <ul class="preview-thumbnail nav nav-tabs d-flex align-items-center justify-content-center  mt-5">
-      <li *ngFor="let img of selectedProduct.images"><a data-target="#pic-2" data-toggle="tab"><img
+      <li *ngFor="let img of selectedProduct?.images"><a data-target="#pic-2" data-toggle="tab"><img
             style="height: 100px; width: 100px; margin: 0 10px;" [src]="img" /></a>
       </li>
     </ul>
   </div>
 
   <div class="col-md-4">
-    <h2 class="mb-4">{{selectedProduct.title}}</h2>
-    <p style="font-size: 15px; color: lightslategray;">{{selectedProduct.description}}</p>
+    <h2 class="mb-4">{{selectedProduct?.title}}</h2>
+    <p style="font-size: 15px; color: lightslategray;">{{selectedProduct?.description}}</p>
     <hr>
     <div class="rate d-flex align-items-baseline justify-content-start mb-4">
       <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
         class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i> &nbsp;
       <span class="card-text fw-bolder"
-        style="font-size: 14px; color: lightslategray;">({{selectedProduct.rating}})</span>
+        style="font-size: 14px; color: lightslategray;">({{selectedProduct?.rating}})</span>
     </div>
     <hr>
-    <h3 class="card-text fw-medium mb-4">{{selectedProduct.price | currency:'USD':'symbol':'0.0-0'}}</h3>
+    <div class="d-flex align-items-center  justify-content-evenly ">
+      <h3 class="card-text fw-medium mb-4 text-muted text-decoration-line-through ">
+        EGP{{selectedProduct?.price | changeCurrency:31}}</h3>
+      <h4 class="card-text fw-medium mb-4 text-danger">{{selectedProduct?.discountPercentage}}% Sale!</h4>
+      <h3 class="card-text fw-medium mb-4">
+        EGP{{selectedProduct?.price | sale:selectedProduct?.discountPercentage | changeCurrency:31}}</h3>
+
+    </div>
     <hr>
 
     <div class="mb-4">
-      <span class="instock card-text" *ngIf="selectedProduct.stock > 0">In-stock</span>
-      <span class="outstock card-text" *ngIf="selectedProduct.stock <= 0">Out-stock</span>
+      <span class="instock card-text" *ngIf="selectedProduct?.stock > 0">In-stock</span>
+      <span class="outstock card-text" *ngIf="selectedProduct?.stock <= 0">Out-stock</span>
     </div>
 
 
     <p>more information: </p>
     <div class="mb-4">
-      <span class="inf card-text me-4">Category: {{selectedProduct.category}}</span>
-      <span class="inf card-text">Brand: {{selectedProduct.brand}}</span>
+      <span class="inf card-text me-4">Category: {{selectedProduct?.category}}</span>
+      <span class="inf card-text">Brand: {{selectedProduct?.brand}}</span>
     </div>
     <hr>
 
-    <div class="d-flex align-items-center justify-content-start mb-4" *ngIf="selectedProduct.stock > 0">
+    <div class="d-flex align-items-center justify-content-start mb-4" *ngIf="selectedProduct?.stock > 0">
       <div class="counter mb4 d-flex align-items-center justify-content-evenly me-4">
         <i class="fa-solid fa-minus" (click)="decrease()"></i>
         <p style="font-size: 20px; padding-top: 15px;">{{counter}}</p>
         <i class="fa-solid fa-plus" (click)="increase()"></i>
       </div>
       <div style="font-weight: bold; font-size: 14px;">
-        <span style="color: lightslategray;">Only <span style="color: orange;">{{selectedProduct.stock}} items</span>
+        <span style="color: lightslategray;">Only <span style="color: orange;">{{selectedProduct?.stock}} items</span>
           Left!</span><br>
         <span style="color: lightslategray;">Dont miss it</span>
       </div>
     </div>
     <div class="d-flex align-items-center justify-content-start">
-      <button class="buy btn me-4" [disabled]="selectedProduct.stock < 0">Buy Now!</button>
-      <button class="add btn" [disabled]="selectedProduct.stock < 0">Add To cart</button>
+      <button class="buy btn me-4" [disabled]="selectedProduct?.stock < 0">Buy Now!</button>
+      <button class="add btn" (click)="addProduct(selectedProduct)" [disabled]="selectedProduct?.stock < 0">Add To
+        cart</button>
     </div>
     <hr>
   </div>

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { products } from '../interface';
 import { ProductsService } from '../products.service';
 import { CounterService } from '../counter.service';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -11,24 +12,32 @@ import { CounterService } from '../counter.service';
 })
 export class ProductDetailsComponent {
   counter!: number;
-  activeId!: string;
-  selectedProduct!: products;
+  activeId: any;
+  selectedProduct!: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private _activatedRoute: ActivatedRoute,
     private _ProductsService: ProductsService,
-    private _CounterService: CounterService
+    private _CounterService: CounterService,
+    private _CartService: CartService
   ) {}
 
   ngOnInit() {
-    this.activeId = this.activatedRoute.snapshot.params['id'];
-    this._ProductsService.getProductDetails(+this.activeId).subscribe((res) => {
+    this._activatedRoute.paramMap.subscribe((params) => {
+      this.activeId = params.get('id');
+    });
+
+    this._ProductsService.getProductDetails(this.activeId).subscribe((res) => {
       this.selectedProduct = res;
     });
 
     this._CounterService.getCounter().subscribe((counter) => {
       this.counter = counter;
     });
+  }
+
+  addProduct(product: products) {
+    this._CartService.addToCart(product);
   }
 
   increase() {

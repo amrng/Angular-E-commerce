@@ -1,5 +1,37 @@
 <div class="row">
   <div class="col-md-3 g-5" *ngFor="let product of products">
-    <app-product-card [product]="product"></app-product-card>
+    <div class="card mb-5" style="min-height: 420px;" *ngIf="product">
+      <span class="instock card-text" *ngIf="product.stock > 0">In-stock</span>
+      <span class="outstock card-text" *ngIf="product.stock <= 0">Out-stock</span>
+      <span class="sale card-text" *ngIf="product.discountPercentage > 0 && product.stock > 0"><i
+          class="fa-solid fa-percent fa-fade">
+          Sale</i></span>
+
+
+      <img [src]="product.thumbnail" (click)="redirectToDetails(product.id)" class="card-img-top img-responsive"
+        style="height: 200px; cursor: pointer;" alt={{product.title}}>
+
+      <div class="card-body">
+        <div class="d-flex align-items-baseline justify-content-between">
+          <h5 class="det card-text" (click)="redirectToDetails(product.id)" style="cursor: pointer;">
+            {{product.title.split("
+            ").slice(0,2).join(" ")}}</h5>
+          <h5 class="card-text">EGP{{product.price | changeCurrency:31}}</h5>
+        </div>
+
+        <p class="card-text" style="font-size: 14px; color: lightslategray;">{{product.description.split("
+          ").slice(0,4).join(" ")}}...</p>
+
+        <div class="d-flex align-items-baseline justify-content-start">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+            class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i> &nbsp;
+          <span class="card-text fw-bolder" style="font-size: 14px;">({{product.rating}})</span>
+        </div>
+        <button class="addToCart btn btn-success mb-2" (click)="addProduct(product)">
+          <a class="mb-2 text-decoration-none text-white">Add to cart</a>
+          <i class="fa-solid fa-cart-plus fa-lg ms-2"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
